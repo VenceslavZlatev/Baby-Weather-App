@@ -285,4 +285,100 @@ class WeatherData {
         return "assets/images/Clear.png";
     }
   }
+
+  dynamic jacketimg = [
+    "assets/clothes/jacket.png",
+    "assets/clothes/sweatshirt.png",
+    "assets/clothes/jacket.png",
+    "assets/clothes/sweatshirt.png",
+  ];
+  late Random rndjackets = Random();
+  imgjackets() {
+    int min = 0;
+    int max = jacketimg.length - 1;
+    int r = min + rndjackets.nextInt(max - min);
+    String image_name = jacketimg[r].toString();
+    return image_name;
+  }
+
+  dynamic shirtimg = [
+    "assets/clothes/shirt.png",
+    "assets/clothes/pajamas.png",
+    "assets/clothes/overall.png",
+    "assets/clothes/baby-clothes.png",
+  ];
+  late Random rndshirts = Random();
+  imgshirts() {
+    int min = 0;
+    int max = shirtimg.length - 1;
+    int r = min + rndshirts.nextInt(max - min);
+    String image_name = shirtimg[r].toString();
+    return image_name;
+  }
+
+  headClothes() {
+    if (temp.celsius <= 10) {
+      return "assets/clothes/winter-hat.png";
+    } else if (temp.celsius > 10 && temp.celsius <= 15) {
+      return "assets/clothes/winter-hat (1).png";
+    } else if (temp.celsius > 15 && temp.celsius <= 20) {
+      return "assets/clothes/hat.png";
+    } else
+      return "assets/clothes/hat.png";
+  }
+
+  upperClothes() {
+    if (temp.celsius > 10 && temp.celsius <= 15) {
+      return imgjackets();
+    } else
+      return "none";
+  }
+
+  blozeClothes() {
+    if (temp.celsius <= 10) {
+      return "assets/clothes/pullover.png";
+    } else if (temp.celsius > 10 && temp.celsius <= 15) {
+      return "assets/clothes/sweater.png";
+    } else
+      return "none";
+  }
+
+  shirtClothes() {
+    if (temp.celsius <= 10) {
+      return "assets/clothes/polo.png";
+    } else if (temp.celsius > 10 && temp.celsius <= 15) {
+      return "assets/clothes/vest.png";
+    } else if (temp.celsius > 15 && temp.celsius <= 20) {
+      return "assets/clothes/shirt.png";
+    } else if (temp.celsius > 20) {
+      return imgshirts();
+    } else
+      return "none";
+  }
+
+  pantsClothes() {
+    if (temp.celsius <= 10) {
+      return "assets/clothes/trousers.png";
+    } else if (temp.celsius > 10 && temp.celsius <= 15) {
+      return "assets/clothes/jeans.png";
+    } else if (temp.celsius > 15 && temp.celsius <= 20) {
+      return "assets/clothes/trousers (1).png";
+    } else if (temp.celsius > 20) {
+      return "assets/clothes/pants.png";
+    } else
+      return "none";
+  }
+
+  feetClothes() {
+    if (temp.celsius <= 10) {
+      return "assets/clothes/socks.png";
+    } else if (temp.celsius > 10 && temp.celsius <= 15) {
+      return "assets/clothes/socks.png";
+    } else if (temp.celsius > 15 && temp.celsius <= 20) {
+      return "assets/clothes/socks.png";
+    } else if (temp.celsius > 20) {
+      return "assets/clothes/socks.png";
+    } else
+      return "none";
+  }
 }

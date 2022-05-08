@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gender_picker/source/enums.dart';
 import 'package:gender_picker/source/gender_picker.dart';
 import 'package:open_weather_example_flutter/screens/settings.dart';
+import 'package:open_weather_example_flutter/src/features/weather_page/city_search_box.dart';
 import 'package:open_weather_example_flutter/src/features/weather_page/weather_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'package:open_weather_example_flutter/src/features/weather_page/current_weather_controller.dart';
 import 'preferences/user_simple_preferences.dart';
 
 class Something {
@@ -15,7 +16,10 @@ class Something {
   static Gender selectedgender = Gender.Male;
   static final mycontroller = TextEditingController();
   static DateTime? dateTime = DateTime.now();
-  static int? setgender = Something.selectedgender.index;
+  static int? setgender = 2;
+  static bool showHome = false;
+  static String saveCity = "Sofia";
+  static bool checkT = true;
 }
 
 class OnBoard extends StatefulWidget {
@@ -35,34 +39,34 @@ class _OnBoardState extends State<OnBoard> {
   @override
   void initState() {
     super.initState();
-
-    getData();
+    //getData();
   }
 
-  getData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    Something.mycontroller.text = prefs.getString("name")!;
-    Something.setgender = prefs.getInt('gender');
-    Something.dateTime = DateTime.parse(prefs.getString('dateTime')!);
-    setDegree.changeDegree = prefs.getBool('setDegree');
-    setDegree.selectedC = prefs.getBool('selectedC');
-    setDegree.selectedF = prefs.getBool('selectedF');
-    setState(() {
-      print(Something.dateTime);
-      print(Something.selectedgender);
-      //Something.mycontroller.text = name!;
-      if (Something.setgender == 1) {
-        Something.selectedgender = Gender.Others;
-      } else if (Something.setgender == 0) {
-        Something.selectedgender = Gender.Female;
-      } else if (Something.setgender == 2) {
-        Something.selectedgender = Gender.Male;
-      }
-      print(Something.selectedgender);
-      print(Something.setgender);
-    });
-    //Something.dateTime = UserSimplePreferences.getBirthday()!;
-  }
+  // getData() {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   Something.mycontroller.text = prefs.getString("name")!;
+  //   Something.setgender = prefs.getInt('gender');
+  //   Something.dateTime = DateTime.parse(prefs.getString('dateTime')!);
+  //   Something.showHome = prefs.getBool("showHome")!;
+  //   setDegree.changeDegree = prefs.getBool('setDegree');
+  //   setDegree.selectedC = prefs.getBool('selectedC');
+  //   setDegree.selectedF = prefs.getBool('selectedF');
+  //   setState(() {
+  //     print(Something.dateTime);
+  //     print(Something.selectedgender);
+  //     //Something.mycontroller.text = name!;
+  //     if (Something.setgender == 1) {
+  //       Something.selectedgender = Gender.Others;
+  //     } else if (Something.setgender == 0) {
+  //       Something.selectedgender = Gender.Female;
+  //     } else if (Something.setgender == 2) {
+  //       Something.selectedgender = Gender.Male;
+  //     }
+  //     print(Something.selectedgender);
+  //     print(Something.setgender);
+  //   });
+  //   //Something.dateTime = UserSimplePreferences.getBirthday()!;
+  // }
 
   @override
   void dispose() {
@@ -537,12 +541,17 @@ class _OnBoardState extends State<OnBoard> {
                             ),
                           ),
                         );
+
+                        Something.showHome = true;
+
                         // await UserSimplePreferences.setBirthday(
                         //     Something.dateTime!);
+
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         prefs.setString(
                             'dateTime', Something.dateTime!.toIso8601String());
+                        prefs.setBool('showHome', Something.showHome);
                         print(Something.dateTime);
                       },
                       icon: Text(

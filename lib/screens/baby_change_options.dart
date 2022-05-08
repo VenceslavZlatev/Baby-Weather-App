@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gender_picker/gender_picker.dart';
 import 'package:gender_picker/source/enums.dart';
+import 'package:open_weather_example_flutter/screens/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../src/features/weather_page/weather_page.dart';
 import 'onboarding_screen.dart';
 import 'preferences/user_simple_preferences.dart';
 
@@ -43,7 +45,13 @@ class _BabyNameOptionsState extends State<BabyNameOptions> {
               fontWeight: FontWeight.w500),
         ),
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Settings(),
+            ),
+            (Route<dynamic> route) => false,
+          ),
           icon: Icon(
             Icons.arrow_back_ios,
             size: 25.sp,
@@ -217,15 +225,21 @@ class _BabyNameOptionsState extends State<BabyNameOptions> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data')),
                           );
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.setString('name', Something.mycontroller.text);
+                          prefs.setInt('gender', Something.setgender);
+                          prefs.setString(
+                              'dateTime', Something.dateTime.toIso8601String());
 
-                          Navigator.pop(context);
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Settings(),
+                            ),
+                            (Route<dynamic> route) => false,
+                          );
                         }
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        prefs.setString('name', Something.mycontroller.text);
-                        prefs.setInt('gender', Something.setgender);
-                        prefs.setString(
-                            'dateTime', Something.dateTime.toIso8601String());
                       },
                       child: Text(
                         'Save',

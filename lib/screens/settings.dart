@@ -2,9 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:open_weather_example_flutter/screens/baby_change_options.dart';
 import 'package:open_weather_example_flutter/screens/onboarding_screen.dart';
+import 'package:open_weather_example_flutter/src/entities/weather/weather.dart';
+import 'package:open_weather_example_flutter/src/features/weather_page/current_weather.dart';
 import 'package:open_weather_example_flutter/src/features/weather_page/weather_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,15 +25,12 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  _getRequests() async {
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
   }
 
+  Color unselected = Colors.white;
   Color colorSelect = Colors.transparent;
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,17 @@ class _SettingsState extends State<Settings> {
               fontWeight: FontWeight.w500),
         ),
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const WeatherPage(
+                  city: "London",
+                ),
+              ),
+              (Route<dynamic> route) => false,
+            );
+          },
           icon: Icon(
             Icons.arrow_back_ios,
             size: 25.sp,
@@ -75,7 +83,10 @@ class _SettingsState extends State<Settings> {
                       ),
                       //add child
                     ),
-                    title: Text('Babies'),
+                    title: Text(
+                      'Babies',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     minLeadingWidth: 0,
                     horizontalTitleGap: 5,
                     contentPadding: EdgeInsets.all(0.h),
@@ -97,13 +108,13 @@ class _SettingsState extends State<Settings> {
                             color: Color(0xffc6c9d2),
                             borderRadius: BorderRadius.circular(10.r)),
                       ),
-                      title: Text("${Something.mycontroller.text}"),
-                      onTap: () => Navigator.of(context)
-                          .push(
-                            MaterialPageRoute(
-                                builder: (_) => BabyNameOptions()),
-                          )
-                          .then((val) => {_getRequests()}),
+                      title: Text(
+                        "${Something.mycontroller.text}",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => BabyNameOptions()),
+                      ),
                       minLeadingWidth: 0,
                       horizontalTitleGap: 5,
                       contentPadding: EdgeInsets.all(0),
@@ -124,7 +135,10 @@ class _SettingsState extends State<Settings> {
                             color: Color(0xffc6c9d2),
                             borderRadius: BorderRadius.circular(10.r)),
                       ),
-                      title: Text('Some text'),
+                      title: Text(
+                        'Some text',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       minLeadingWidth: 0,
                       horizontalTitleGap: 5,
                       contentPadding: EdgeInsets.all(0),
@@ -145,7 +159,10 @@ class _SettingsState extends State<Settings> {
                             color: Color(0xffc6c9d2),
                             borderRadius: BorderRadius.circular(10.r)),
                       ),
-                      title: Text('Some text'),
+                      title: Text(
+                        'Some text',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       minLeadingWidth: 0,
                       horizontalTitleGap: 5,
                       contentPadding: EdgeInsets.all(0),
@@ -196,7 +213,10 @@ class _SettingsState extends State<Settings> {
                         size: 25.sp,
                       ),
                     ),
-                    title: Text('Units'),
+                    title: Text(
+                      'Units',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     minLeadingWidth: 0,
                     horizontalTitleGap: 5,
                     contentPadding: EdgeInsets.all(0.h),
@@ -218,10 +238,16 @@ class _SettingsState extends State<Settings> {
                         print(setDegree.changeDegree);
                       }),
                       selected: setDegree.selectedC,
-                      title: Text('Celsius(\u00B0C)'),
+                      title: Text(
+                        'Celsius(\u00B0C)',
+                        style: TextStyle(
+                            color: setDegree.selectedC
+                                ? Colors.blue
+                                : Colors.white),
+                      ),
                       minLeadingWidth: 0,
                       horizontalTitleGap: 5,
-                      contentPadding: EdgeInsets.all(0),
+                      contentPadding: EdgeInsets.all(0.h),
                       trailing: Icon(
                         Icons.done,
                         color: setDegree.selectedC ? Colors.blue : colorSelect,
@@ -238,11 +264,17 @@ class _SettingsState extends State<Settings> {
                         setDegree.changeDegree = false;
                         print(setDegree.changeDegree);
                       }),
-                      title: Text('Ferenheit(\u00B0F)'),
+                      title: Text(
+                        'Ferenheit(\u00B0F)',
+                        style: TextStyle(
+                            color: setDegree.selectedF
+                                ? Colors.blue
+                                : Colors.white),
+                      ),
                       selected: setDegree.selectedF,
                       minLeadingWidth: 0,
                       horizontalTitleGap: 5,
-                      contentPadding: EdgeInsets.all(0),
+                      contentPadding: EdgeInsets.all(0.h),
                       trailing: Icon(
                         Icons.done,
                         color: setDegree.selectedF ? Colors.blue : colorSelect,
@@ -264,19 +296,19 @@ class _SettingsState extends State<Settings> {
                 ),
               ),
               onPressed: () async {
-                Navigator.pushReplacement(
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setBool('selectedC', setDegree.selectedC);
+                await prefs.setBool('selectedF', setDegree.selectedF);
+                await prefs.setBool('setDegree', setDegree.changeDegree);
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const WeatherPage(
                       city: "London",
                     ),
                   ),
+                  (Route<dynamic> route) => false,
                 );
-
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setBool('selectedC', setDegree.selectedC);
-                await prefs.setBool('selectedF', setDegree.selectedF);
-                await prefs.setBool('setDegree', setDegree.changeDegree);
                 // await prefs.setBool('setDegree', setD!);
                 // print(setD);
               },
