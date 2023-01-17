@@ -1,5 +1,6 @@
 # Flutter Baby Weather App
 ![](.github/images/screen.png)
+
 Flutter app using the [OpenWeatherMap API](https://openweathermap.org/api).
 ## Supported Features
 - [x] Current weather (condition and temperature)
