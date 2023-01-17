@@ -1,7 +1,7 @@
 # Flutter Baby Weather App
+![](.github/images/screen.png)
 
-An example Flutter weather app using the [OpenWeatherMap API](https://openweathermap.org/api).
-
+Flutter app using the [OpenWeatherMap API](https://openweathermap.org/api).
 
 ## Supported Features
 
@@ -13,6 +13,3 @@ An example Flutter weather app using the [OpenWeatherMap API](https://openweathe
 - [x] Run flutter pub get
 - [x] After that run command flutter run --no-sound-null-safety (project contains package which doen't support null safety)
 - [x] If you are using newer version (>3.3.10) run flutter pub upgrade
-
-![](.github/images/screen.png)
-
