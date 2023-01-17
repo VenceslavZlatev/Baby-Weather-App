@@ -14,4 +14,5 @@ An example Flutter weather app using the [OpenWeatherMap API](https://openweathe
 - [x] After that run command flutter run --no-sound-null-safety (project contains package which doen't support null safety)
 - [x] If you are using newer version (>3.3.10) run flutter pub upgrade
 
-- [x] If you are using newer version (>3.3.10) run flutter pub upgrade
+![](.github/images/screen.png)
+
