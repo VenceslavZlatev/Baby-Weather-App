@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gender_picker/source/enums.dart';
-import 'package:mapbox_search_flutter/mapbox_search_flutter.dart';
+//import 'package:mapbox_search_flutter/mapbox_search_flutter.dart';
 import 'package:open_weather_example_flutter/screens/bottom_nav.dart';
 import 'package:open_weather_example_flutter/screens/bottom_option.dart';
 import 'package:open_weather_example_flutter/screens/settings.dart';

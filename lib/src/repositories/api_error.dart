@@ -13,10 +13,10 @@ class APIError with _$APIError {
 
 extension WeatherErrorAsync on APIError {
   AsyncValue<T> asAsyncValue<T>() => when(
-        invalidApiKey: () => const AsyncValue.error('Invalid API key'),
+        invalidApiKey: () => AsyncValue.error('Invalid API key',StackTrace.current),
         noInternetConnection: () =>
-            const AsyncValue.error('No Internet connection'),
-        notFound: () => const AsyncValue.error('City not found'),
-        unknown: () => const AsyncValue.error('Some error occurred'),
+             AsyncValue.error('No Internet connection',StackTrace.current),
+        notFound: () =>  AsyncValue.error('City not found',StackTrace.current),
+        unknown: () =>  AsyncValue.error('Some error occurred',StackTrace.current),
       );
 }

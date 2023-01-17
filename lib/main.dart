@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       designSize: const Size(412, 869),
       minTextAdapt: true,
-      builder: (_) => DismissKeyboard(
+      builder: (context,child) => DismissKeyboard(
         child: MaterialApp(
             title: 'BabyWeather',
             debugShowCheckedModeBanner: false,
