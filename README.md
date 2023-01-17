@@ -8,3 +8,8 @@ An example Flutter weather app using the [OpenWeatherMap API](https://openweathe
 - [x] Current weather (condition and temperature)
 - [x] 5-day weather forecast
 - [x] Search by city
+
+## How to configure
+- [x] Run flutter pub get
+- [x] 
+- [x] If you are using newer version (>3.3.10) run flutter pub upgrade
